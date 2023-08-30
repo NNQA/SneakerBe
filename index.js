@@ -14,11 +14,12 @@ app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 connectToDatabase();
 app.use(
   cors({
-    origin: ["https://deft-dasik-a569f0.netlify.app/"],
+    origin: "*",
     methods: ["POST", "GET"],
     credentials: true,
   })
 );
+app.options("*", cors());
 app.use("/api/v1", routeProduct);
 const port = process.env.PORT;
 app.listen(port, () => {
