@@ -12,14 +12,22 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(helmet());
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 connectToDatabase();
+const allowedOrigins = ["https://strong-starlight-e633d6.netlify.app"];
+
 app.use(
   cors({
-    origin: "https://strong-starlight-e633d6.netlify.app/",
-    methods: ["POST", "GET"],
+    origin: function (origin, callback) {
+      if (allowedOrigins.includes(origin) || !origin) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    methods: ["GET", "POST"],
     credentials: true,
   })
 );
-app.options("*", cors());
+
 app.use("/api/v1", routeProduct);
 const port = process.env.PORT;
 app.listen(port, () => {
