@@ -14,7 +14,7 @@ app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 connectToDatabase();
 app.use(
   cors({
-    origin: ["https://main--deft-dasik-a569f0.netlify.app/"],
+    origin: ["https://deft-dasik-a569f0.netlify.app/"],
     methods: ["POST", "GET"],
     credentials: true,
   })
